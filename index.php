@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 $password = "monMotdePasse1234";
 $password2 = "monMotdePasse1234";
@@ -46,9 +47,12 @@ $saisie = "monMotdePasse1234";
 
 $check = password_verify($saisie, $hash);//password_verify vérifie qu'un MDP correspond à un hachage
 //Il sert à comparer un MDP saisi ds un formulaire avec le hash géneré dans la BDD (result: true or false)
+$user = "Mickael";
 
-//-> if(password_verify($saisie, $hash)){
-//   echo "Les MDP correspondent!";}
-//   else {
-//   echo "Les MDP ne correspondent pas!";}
+ if(password_verify($saisie, $hash)){
+   //echo "Les MDP correspondent!";
+$_SESSION [ "user"] = $user;
+echo $user. "est connecté.";
+   echo "Les MDP sont différents!";
+}
 
