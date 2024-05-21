@@ -8,7 +8,7 @@
     <body>
 
     <h1>S'inscrire</h1>
-    <form action="traitement.php?action=register" method="POST">
+    <form action="traitement.php?action=register" method="POST"><!--STRUCTURE DE L'URL POUR DECLENCHER UNE ACTION: INDEX.PHP?CTRL ACTION= METHOD= ID= -->
         <label for="pseudo">Pseudo</label>
         <input type="text" name="pseudo" id="pseudo"><br>
 
@@ -20,6 +20,7 @@
 
         <label for="pass2">Confirmation du mot de passe</label>
         <input type="password" name="pass2" id="pass2"><br>
+        
         <input type="submit" value="S'enregistrer">
 
     </form>
