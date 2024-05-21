@@ -35,8 +35,7 @@ if (isset($_GET["action"])){
                     ]);
                     header("Location: login.php"); exit;
                 }
-                }
-            
+                } 
             }
 
         break;
