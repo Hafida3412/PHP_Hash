@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 if (isset($_GET["action"])){  //SI LE FORMUAIRE EST SOUMIS:
     switch($_GET["action"]){
@@ -60,9 +61,23 @@ if (isset($_GET["action"])){  //SI LE FORMUAIRE EST SOUMIS:
                 $requete = $pdo->prepare("SELECT * FROM user WHERE email = :email");
                 $requete->execute(["email" => $email]);
                 $user = $requete->fetch();
-
                 //var_dump($user);die;
-            }
+                //si l'utilisateur existe
+                if($user){
+                    $hash = $user["password"];
+                    if(password_verify($password, $hash)){//VERIFICATION DU MDP
+                $_SESSION["user"] = $user; //on stocke dans un tableau SESSION l'intégralité des infos du user
+                header("Location: home.php");
+//Dans Forum, la redirection sera par exemple: header("Location: index.php?ctrl=home&action=index&id=");    
+                   } else {
+                    header("Location: login.php"); exit;
+                // message utilisateur inconnu ou MDP incorrect
+                   }
+                } else {
+                 // message utilisateur inconnu ou MDP incorrect
+                   header("Location: login.php"); exit;  
+                }
+            } 
         
         }
         header("Location: login.php"); exit;
