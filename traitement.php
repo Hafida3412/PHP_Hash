@@ -67,7 +67,7 @@ if (isset($_GET["action"])){  //SI LE FORMUAIRE EST SOUMIS:
                     $hash = $user["password"];
                     if(password_verify($password, $hash)){//VERIFICATION DU MDP
                 $_SESSION["user"] = $user; //on stocke dans un tableau SESSION l'intégralité des infos du user
-                header("Location: home.php");
+                header("Location: home.php");//SI CONNEXION REUSSIE: REDIRECTION VERS PAGE D ACCUEIL
 //Dans Forum, la redirection sera par exemple: header("Location: index.php?ctrl=home&action=index&id=");    
                    } else {
                     header("Location: login.php"); exit;
@@ -82,8 +82,14 @@ if (isset($_GET["action"])){  //SI LE FORMUAIRE EST SOUMIS:
         }
         header("Location: login.php"); exit;
         break;
+
+        case "profile":
+            header("Location: profile.php"); exit;
+        break;
         
         case "logout":
+            unset($_SESSION["user"]);//SUPPRESSION DE TOUT LE TABLEAU POUR POUVOIR SE DECONNECTER
+            header("Location: home.php"); exit;
         break;
 }
 }
