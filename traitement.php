@@ -1,6 +1,6 @@
 <?php
 
-if (isset($_GET["action"])){
+if (isset($_GET["action"])){  //SI LE FORMUAIRE EST SOUMIS:
     switch($_GET["action"]){
         case "register":
             //CONNEXION A LA BASE DE DONNEES:
@@ -31,20 +31,44 @@ if (isset($_GET["action"])){
                         "pseudo" => $pseudo,
                         "email" => $email,
                         "password" => password_hash($pass1, PASSWORD_DEFAULT)// MDP HASHE
-
                     ]);
                     header("Location: login.php"); exit;
-                }else{
+                } else {
                     //message "Les MDP ne sont pas identiques ou MDP trop court!
                 }
-                } 
+            }
             } else {
                 //problème de saisie dans les champs de formulaire
             }
+    
+        // SI LE FORMULAIRE N EST PAS SOUMIS J AFFICHE LE FORMULAIRE D INSCRIPTION
+                    header("Location: register.php"); exit;
+                
         break;
 
         case "login":
             //connexion à l'application
+        if($_POST["submit"]){
+            //CONNEXION A LA BASE DE DONNEES:
+            $pdo = new PDO("mysql: host=localhost; dbname=php_hash_colmar;charset=utf8", "root", "");
+           
+            //PROTECTION XSS (=FILTRES)
+            $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_VALIDATE_EMAIL);
+            $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        
+            if($email && $password) {//REQUETE PREPARE POUR LUTTER CTRE LES INJECTIONS SQL
+                $requete = $pdo->prepare("SELECT * FROM user WHERE email = :email");
+                $requete->execute(["email" => $email]);
+                $user = $requete->fetch();
+
+                //var_dump($user);die;
+            }
+        
+        }
+        header("Location: login.php"); exit;
         break;
-    }
+        
+        case "logout":
+        break;
+}
 }
