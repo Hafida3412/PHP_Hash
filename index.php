@@ -56,3 +56,30 @@ echo $user. "est connecté.";
    echo "Les MDP sont différents!";
 }
 
+//POINTS ESSENTIELS A CONTROLER LORS DE LA MISE EN PLACE DES METHODES register() ET login()
+//(IDEALEMENT DANS SecurityController):
+/*
+
+Pour le register:
+ - on filtre les champs du formulaire
+ - si les filtres sont valides on vérifie que le mail n'existe pas déjà (sinon message d'erreur)
+ - on vérifie que le pseudo n'existe pas non plus(sinon message d'erreur)
+ - on vérifie que les 2 MDP de formulaire soient identiques
+ - si c'est le cas, on hash le MDP(password_hash)
+ - on ajoute l'utilisateur en base de données
+
+ Pour le login:
+ - on filtre les champs du formulaire
+ - si les filtres passent, on retrouve le password correspondant au mail entré dans le formulaire
+ - si on le trouve, on récupère le hash de la base de données
+ - on retrouve l'utilisateur correspondant
+ - on vérifie le MDP(password_verify)
+ - si on arrive à se connecter, on fait passer le user en session
+ - si aucune des conditions ne passent(mauvais MDP, utilisateur inexistant, etc): message d'erreur
+
+ Consulter la documentation sur les 2 méthodes PHP natives et de bien comprendre leur utilité/utilisation:
+ - password_hash
+ - password_verify
+ 
+*/
+ 
