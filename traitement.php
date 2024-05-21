@@ -20,8 +20,21 @@ if (isset($_GET["action"])){
                 $requete->execute(["email" => $email]);
                 $user = $requete->fetch();
                 //SI L UTILISATEUR EXISTE
-                if ($user){
-                    header("Location: register.php"); exit; (18:09)
+                if($user){
+                    header("Location: register.php"); exit; 
+                } else {
+                    //var dump("utilisateur inexistant");die;
+                    //insertion de l'utilisateur en BDD
+                if($pass1 = $pass2 && strlen($pass1) >= 5) {//VERIFICATION QUE LES MDP SONT IDENTIQUES
+                    $insertUser = $pdo->prepare("INSERT INTO user (pseudo, email, password) VALUES (:pseudo, :email, :password)");
+                    $insertUser->execute([
+                        "pseudo" => $pseudo,
+                        "email" => $email,
+                        "password" => password_hash($pass1, PASSWORD_DEFAULT)// MDP HASHE
+
+                    ]);
+                    header("Location: login.php"); exit;
+                }
                 }
             
             }
