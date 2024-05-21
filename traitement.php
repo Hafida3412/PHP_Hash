@@ -34,10 +34,17 @@ if (isset($_GET["action"])){
 
                     ]);
                     header("Location: login.php"); exit;
+                }else{
+                    //message "Les MDP ne sont pas identiques ou MDP trop court!
                 }
                 } 
+            } else {
+                //problème de saisie dans les champs de formulaire
             }
+        break;
 
+        case "login":
+            //connexion à l'application
         break;
     }
 }
