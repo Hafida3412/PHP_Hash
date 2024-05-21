@@ -53,6 +53,7 @@ $user = "Mickael";
    //echo "Les MDP correspondent!";
 $_SESSION [ "user"] = $user;
 echo $user. "est connecté.";
+} else {
    echo "Les MDP sont différents!";
 }
 
@@ -80,6 +81,6 @@ Pour le register:
  Consulter la documentation sur les 2 méthodes PHP natives et de bien comprendre leur utilité/utilisation:
  - password_hash
  - password_verify
- 
+
 */
  
